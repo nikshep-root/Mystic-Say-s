@@ -1,0 +1,181 @@
+body {
+    font-family: 'Press Start 2P', cursive;
+    background-color: #1a1a2e; /* Dark purple/blue base */
+    /* Adding a subtle pixel-art like background texture */
+    background-image: radial-gradient(circle, #2e0249 1px, transparent 1px),
+                      radial-gradient(circle, #2e0249 1px, transparent 1px);
+    background-size: 20px 20px; /* Adjust size for pixel effect */
+    background-position: 0 0, 10px 10px; /* Offset for staggered dots */
+    color: #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    overflow: hidden;
+}
+
+.container {
+    text-align: center;
+    background-color: rgba(46, 2, 73, 0.9); /* Slightly transparent background */
+    padding: 40px 60px;
+    border-radius: 15px;
+    /* Refined box shadow with multiple layers for a neon-like glow */
+    box-shadow: 0 0 10px #8a2be2, /* Inner glow */
+                0 0 20px #8a2be2,
+                0 0 40px #8a2be2,
+                0 0 80px #8a2be2; /* Outer glow */
+    border: 3px solid #00f0ff; /* Brighter, more distinct border */
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: repeating-linear-gradient(45deg, rgba(0,240,255,0.1), rgba(0,240,255,0.1) 10px, transparent 10px, transparent 20px);
+    transform: rotate(45deg);
+    z-index: -1;
+    opacity: 0.1; /* Subtle scanline/glitch effect */
+}
+
+h1 {
+    font-size: 3em;
+    color: #00f0ff;
+    text-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff, 0 0 30px #00f0ff;
+    margin-bottom: 40px;
+}
+
+button {
+    background-color: #8a2be2;
+    color: #fff;
+    border: none;
+    padding: 15px 30px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1.2em;
+    border-radius: 8px;
+    cursor: pointer;
+    /* More distinct button glow and animation */
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 0 5px #8a2be2, 0 0 15px #8a2be2, 0 0 30px #8a2be2;
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff;
+}
+
+button:hover {
+    background-color: #9370db;
+    transform: scale(1.05) rotateZ(1deg); /* Slight rotation on hover */
+    box-shadow: 0 0 10px #9370db, 0 0 20px #9370db, 0 0 40px #9370db;
+    text-shadow: 0 0 8px #fff, 0 0 15px #fff;
+}
+
+button:active {
+    transform: scale(0.98);
+    box-shadow: 0 0 5px #8a2be2, inset 0 0 5px #8a2be2;
+}
+
+.hidden {
+    display: none;
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: 150px 150px;
+    grid-template-rows: 150px 150px;
+    gap: 20px;
+    margin: 50px auto;
+    width: 320px;
+    height: 320px;
+    perspective: 1000px;
+}
+
+.game-button {
+    width: 150px;
+    height: 150px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: transform 0.1s ease-out, box-shadow 0.2s ease-in-out;
+    border: 2px solid transparent; /* Base border for glowing effect */
+}
+
+.game-button.red {
+    background-color: #ff0000;
+    box-shadow: 0 0 15px #ff0000;
+}
+
+.game-button.blue {
+    background-color: #0000ff;
+    box-shadow: 0 0 15px #0000ff;
+}
+
+.game-button.green {
+    background-color: #00ff00;
+    box-shadow: 0 0 15px #00ff00;
+}
+
+.game-button.yellow {
+    background-color: #ffff00;
+    box-shadow: 0 0 15px #ffff00;
+}
+
+.game-button:hover {
+    transform: scale(1.03);
+}
+
+.game-button.active {
+    transform: scale(0.95);
+    animation: button-press 0.2s ease-out; /* Add a slight animation for press */
+    box-shadow: 0 0 20px, inset 0 0 10px; /* Reduced inner shadow */
+    border: 2px solid rgba(255, 255, 255, 0.5); /* White highlight on active */
+}
+
+@keyframes button-press {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.9); }
+    100% { transform: scale(0.95); }
+}
+
+.game-button.red.active {
+    box-shadow: 0 0 30px #ff0000, inset 0 0 15px #ff0000;
+}
+
+.game-button.blue.active {
+    box-shadow: 0 0 30px #0000ff, inset 0 0 15px #0000ff;
+}
+
+.game-button.green.active {
+    box-shadow: 0 0 30px #00ff00, inset 0 0 15px #00ff00;
+}
+
+.game-button.yellow.active {
+    box-shadow: 0 0 30px #ffff00, inset 0 0 15px #ffff00;
+}
+
+.message {
+    font-size: 1.5em;
+    color: #ff00ff;
+    text-shadow: 0 0 10px #ff00ff;
+    margin-top: 20px;
+}
+
+.glitch {
+    animation: glitch-effect 1s infinite alternate;
+}
+
+@keyframes glitch-effect {
+    0% { text-shadow: 0 0 10px #ff00ff; transform: translate(0); opacity: 1; }
+    10% { text-shadow: -3px -3px 0 #00f0ff, 3px 3px 0 #ff00ff; transform: translate(3px, 3px); opacity: 0.8; }
+    20% { text-shadow: 2px 2px 0 #00ff00, -2px -2px 0 #ff0000; transform: translate(-2px, -2px); opacity: 1; }
+    30% { text-shadow: -4px 4px 0 #ffff00, 4px -4px 0 #00f0ff; transform: translate(4px, -4px); opacity: 0.7; }
+    40% { text-shadow: 1px -1px 0 #ff00ff, -1px 1px 0 #00ff00; transform: translate(-1px, 1px); opacity: 1; }
+    50% { text-shadow: -2px 2px 0 #00f0ff, 2px -2px 0 #ff0000; transform: translate(-2px, -2px); opacity: 0.85; }
+    60% { text-shadow: 3px -3px 0 #ff00ff, -3px 3px 0 #00ff00; transform: translate(3px, 3px); opacity: 1; }
+    70% { text-shadow: -1px -1px 0 #ffff00, 1px 1px 0 #00f0ff; transform: translate(-1px, -1px); opacity: 0.9; }
+    80% { text-shadow: 2px 2px 0 #ff0000, -2px -2px 0 #00ff00; transform: translate(2px, 2px); opacity: 1; }
+    90% { text-shadow: -3px 0px 0 #00f0ff, 3px 0px 0 #ff00ff; transform: translate(0px, 0px); opacity: 0.75; }
+    100% { text-shadow: 0 0 10px #ff00ff; transform: translate(0); opacity: 1; }
+}
